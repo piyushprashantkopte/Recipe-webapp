@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post" action="" enctype="multipart/form-data" class="max-w-sm mx-auto mt-8 border border-gray-300 rounded-lg p-4  bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+    {% csrf_token %}
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+        Add Recipe
+    </h2>
+    <hr>
+    <div class="mb-5 mt-3">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recipe Name</label>
+      <input type="name" name="recipe_name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter the recipe name" required />
+    </div>
+    <div class="mb-5">
+      <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recipe Description</label>
+      <textarea id="description" name="recipe_description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter the recipe description"></textarea>
+    </div>
+    <div class="flex items-start mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar"></label>
+      <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="image" name="recipe_image" type="file">
+    </div>
+    <button type="submit" name="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-500">Add Recipe</button>
+  </form>
+
+
+  
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <form class="max-w-md mx-auto">  
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white " >Search</label>
+    <div class="relative mb-8 mt-5 w-xl mx-85 ">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+        </div>
+        <input type="search" name="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+    </div>
+    </form>
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border border-gray-300 rounded-lg p-4 ">
+          <tr>
+            <th scope="col" class="p-4">
+              <div class="flex items-center">
+                SrNo.
+              </div>
+            </th>  
+              <th scope="col" class="px-6 py-3">
+                  Recipe name
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Recipe Description
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Image
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Actions
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  <span class="sr-only">Delete</span>
+              </th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for recipe in recipes %}
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+            <td class="w-4 p-4">
+              <div class="flex items-center">  
+                {{forloop.counter}}
+              </div>
+            </td>
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{recipe.recipe_name}}
+              </th>
+              <td class="px-6 py-4">
+                  {{recipe.recipe_description}}
+              </td>
+              <td class="px-6 py-4">
+                  <img class="h-20 w-48"  src="/media/{{recipe.recipe_image}}">
+              </td>
+              <td class="px-6 py-4">
+                <a href="/update-recipe/{{recipe.id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                </svg>Edit                
+                </a>
+              </td>
+              <td class="px-6 py-4 text-right">
+                  <a href="/delete-recipe/{{recipe.id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                  </svg>
+                  </a>
+              </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+
+
+
+
+{% endblock content %}
