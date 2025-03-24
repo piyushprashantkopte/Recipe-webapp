@@ -26,5 +26,6 @@ urlpatterns = [
     path('delete-recipe/<id>/', delete_recipe,name='delete_recipe'),
     path('update-recipe/<id>/', update_recipe,name='update_recipe'),
     path('login/', login_page, name="login"),
+    path('logout/', logout_page, name="logout"),
     path('signup/', register_page, name="sign_up"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

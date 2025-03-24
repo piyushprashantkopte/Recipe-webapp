@@ -1,19 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
-    
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    
-  {% block content %}
-  
-  {% endblock content %}
+    <nav class="bg-gray-400 border-gray-200 dark:bg-gray-900">
+      <div
+        class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4"
+      >
+          <svg
+            class="w-12 h-12 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        
+        <div class="flex items-center space-x-6 rtl:space-x-reverse">
+          <a
+            href="#"
+            class="text-xl font-italic text-gray-700 dark:text-white hover:underline"
+            >{{request.user.first_name}}</a
+          >
+          {% if request.user.is_authenticated %}
+          <a
+            href="{% url 'logout' %}"
+            class="text-sm text-blue-600 dark:text-blue-500 hover:underline"
+            >Logout</a>
+            {% else %}
+            <a
+            href="{% url 'login' %}"
+            class="text-sm text-blue-600 dark:text-blue-500 hover:underline"
+            >Login</a>
+            {% endif %}
+        </div>
+      </div>
+    </nav>
 
-
+    {% block content %} {% endblock content %}
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
   </body>
